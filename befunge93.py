@@ -129,7 +129,8 @@ def run(grid, inp_stream, out_stream):
                 y = (y + dy) % HEIGHT
             elif instr == 'g':
                 a, b = pop(), pop()
-                push(ord(grid[b][a]) if 0 <= b < HEIGHT and 0 <= a < WIDTH else 0)
+                push(ord(grid[b][a]) if 0 <= b < HEIGHT
+                                        and 0 <= a < WIDTH else 0)
             elif instr == 'p':
                 a, b, v = pop(), pop(), pop()
                 if 0 <= b < HEIGHT and 0 <= a < WIDTH:
@@ -151,8 +152,10 @@ def main():
     parser = argparse.ArgumentParser(
         description="Befunge-93 Interpreter — исполняет 2D-программы Befunge."
     )
-    parser.add_argument("program", help="Путь к файлу с программой Befunge-93.")
-    parser.add_argument("--input", "-i", help="Файл с вводом для программы.", default=None)
+    parser.add_argument("program",
+                        help="Путь к файлу с программой Befunge-93.")
+    parser.add_argument("--input", "-i",
+                        help="Файл с вводом для программы.", default=None)
     args = parser.parse_args()
 
     try:
@@ -168,7 +171,8 @@ def main():
             with open(args.input, "rb") as f:
                 runtime_input = f.read()
         except FileNotFoundError:
-            print(f"Ошибка: файл ввода {args.input} не найден.", file=sys.stderr)
+            print(f"Ошибка: файл ввода {args.input} не найден.",
+                  file=sys.stderr)
             sys.exit(1)
 
     grid = load_program(lines)

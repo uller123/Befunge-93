@@ -78,7 +78,6 @@ def test_direction_changes():
         'v': (0, 1)
     }
 
-
     for symbol, expected in directions.items():
         grid = [[' '] * 80 for _ in range(25)]
         grid[0][0] = symbol
@@ -88,10 +87,14 @@ def test_direction_changes():
 
         instr = grid[y][x]
 
-        if instr == '>': dx, dy = 1, 0
-        elif instr == '<': dx, dy = -1, 0
-        elif instr == '^': dx, dy = 0, -1
-        elif instr == 'v': dx, dy = 0, 1
+        if instr == '>':
+            dx, dy = 1, 0
+        elif instr == '<':
+            dx, dy = -1, 0
+        elif instr == '^':
+            dx, dy = 0, -1
+        elif instr == 'v':
+            dx, dy = 0, 1
 
         assert (dx, dy) == expected
 
@@ -104,8 +107,8 @@ def test_question_mark_direction():
     instr = grid[y][x]
     dx, dy = 1, 0
     if instr == '?':
-        dx, dy = random.choice([(1,0),(-1,0),(0,1),(0,-1)])
-    assert (dx, dy) in [(1,0), (-1,0), (0,1), (0,-1)]
+        dx, dy = random.choice([(1, 0), (-1, 0), (0, 1), (0, -1)])
+    assert (dx, dy) in [(1, 0), (-1, 0), (0, 1), (0, -1)]
 
 
 def test_underscore_direction():
