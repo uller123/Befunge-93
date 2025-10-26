@@ -92,13 +92,20 @@ def run(grid, inp_stream, out_stream):
             elif instr == '`':
                 a, b = pop(), pop()
                 push(1 if b > a else 0)
-            elif instr == '>': dx, dy = 1, 0
-            elif instr == '<': dx, dy = -1, 0
-            elif instr == '^': dx, dy = 0, -1
-            elif instr == 'v': dx, dy = 0, 1
-            elif instr == '?': dx, dy = random.choice([(1,0),(-1,0),(0,1),(0,-1)])
-            elif instr == '_': dx, dy = (1,0) if pop() == 0 else (-1,0)
-            elif instr == '|': dx, dy = (0,1) if pop() == 0 else (0,-1)
+            elif instr == '>':
+                dx, dy = 1, 0
+            elif instr == '<':
+                dx, dy = -1, 0
+            elif instr == '^':
+                dx, dy = 0, -1
+            elif instr == 'v':
+                dx, dy = 0, 1
+            elif instr == '?':
+                dx, dy = random.choice([(1,0),(-1,0),(0,1),(0,-1)])
+            elif instr == '_':
+                dx, dy = (1,0) if pop() == 0 else (-1,0)
+            elif instr == '|':
+                dx, dy = (0,1) if pop() == 0 else (0,-1)
             elif instr == ':':
                 a = pop(); push(a); push(a)
             elif instr == '\\':
