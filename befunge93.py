@@ -48,7 +48,9 @@ class InputStream:
 
 
 def run(grid, inp_stream, out_stream):
-    x = 0; y = 0; dx, dy = 1, 0
+    x = 0
+    y = 0
+    dx, dy = 1, 0
     stack = []
     string_mode = False
 
@@ -70,19 +72,26 @@ def run(grid, inp_stream, out_stream):
             elif instr in '0123456789':
                 push(int(instr))
             elif instr == '+':
-                a, b = pop(), pop(); push(b + a)
+                a, b = pop(), pop()
+                push(b + a)
             elif instr == '-':
-                a, b = pop(), pop(); push(b - a)
+                a, b = pop(), pop()
+                push(b - a)
             elif instr == '*':
-                a, b = pop(), pop(); push(b * a)
+                a, b = pop(), pop()
+                push(b * a)
             elif instr == '/':
-                a, b = pop(), pop(); push(0 if a == 0 else b // a)
+                a, b = pop(), pop()
+                push(0 if a == 0 else b // a)
             elif instr == '%':
-                a, b = pop(), pop(); push(0 if a == 0 else b % a)
+                a, b = pop(), pop()
+                push(0 if a == 0 else b % a)
             elif instr == '!':
-                a = pop(); push(0 if a else 1)
+                a = pop()
+                push(0 if a else 1)
             elif instr == '`':
-                a, b = pop(), pop(); push(1 if b > a else 0)
+                a, b = pop(), pop()
+                push(1 if b > a else 0)
             elif instr == '>': dx, dy = 1, 0
             elif instr == '<': dx, dy = -1, 0
             elif instr == '^': dx, dy = 0, -1
