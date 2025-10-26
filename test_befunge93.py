@@ -364,6 +364,7 @@ def test_ampersand_input_int():
 
     # Вариант: нет числа (возвращает None)
     stack = []
+
     class DummyInputStreamNone:
 
         def read_int_token(self):
@@ -391,6 +392,7 @@ def test_tilde_input_char():
 
     # Вариант: нет символа (возвращает None)
     stack = []
+
     class DummyInputStreamNone:
         def read_char(self):
             return None
