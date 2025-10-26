@@ -93,15 +93,22 @@ def run(grid, inp_stream, out_stream):
             elif instr == ':':
                 a = pop(); push(a); push(a)
             elif instr == '\\':
-                a, b = pop(), pop(); push(a); push(b)
+                a, b = pop(), pop()
+                push(a)
+                push(b)
             elif instr == '$':
                 pop()
             elif instr == '.':
-                a = pop(); out_stream.write(str(a) + ' '); out_stream.flush()
+                a = pop()
+                out_stream.write(str(a) + ' ')
+                out_stream.flush()
             elif instr == ',':
-                a = pop(); out_stream.write(chr(a % 256)); out_stream.flush()
+                a = pop()
+                out_stream.write(chr(a % 256))
+                out_stream.flush()
             elif instr == '#':
-                x = (x + dx) % WIDTH; y = (y + dy) % HEIGHT
+                x = (x + dx) % WIDTH
+                y = (y + dy) % HEIGHT
             elif instr == 'g':
                 a, b = pop(), pop()
                 push(ord(grid[b][a]) if 0 <= b < HEIGHT and 0 <= a < WIDTH else 0)
