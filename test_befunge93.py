@@ -341,7 +341,11 @@ def test_p_command():
     if 0 <= y < HEIGHT and 0 <= x < WIDTH:
         grid[y][x] = chr(v % 256)
     # За границами ничего не изменится
-    assert all(grid[row][col] == ' ' for row in range(HEIGHT) for col in range(WIDTH))
+    assert all(
+        grid[row][col] == ' '
+        for row in range(HEIGHT)
+        for col in range(WIDTH)
+    )
 
 
 def test_ampersand_input_int():
@@ -361,6 +365,7 @@ def test_ampersand_input_int():
     # Вариант: нет числа (возвращает None)
     stack = []
     class DummyInputStreamNone:
+
         def read_int_token(self):
             return None
     inp_stream = DummyInputStreamNone()
@@ -376,6 +381,7 @@ def test_tilde_input_char():
 
     # Вариант: есть символ
     class DummyInputStream:
+
         def read_char(self):
             return 'X'  # эмулируем найденный символ
     inp_stream = DummyInputStream()

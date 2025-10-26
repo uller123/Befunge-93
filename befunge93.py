@@ -129,8 +129,11 @@ def run(grid, inp_stream, out_stream):
                 y = (y + dy) % HEIGHT
             elif instr == 'g':
                 a, b = pop(), pop()
-                push(ord(grid[b][a]) if 0 <= b < HEIGHT
-                                    and 0 <= a < WIDTH else 0)
+                push(
+                    ord(grid[b][a])
+                    if (0 <= b < HEIGHT and 0 <= a < WIDTH)
+                    else 0
+                )
             elif instr == 'p':
                 a, b, v = pop(), pop(), pop()
                 if 0 <= b < HEIGHT and 0 <= a < WIDTH:
