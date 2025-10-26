@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 import sys
 import argparse
+from io import StringIO
 import io
 import random
 from collections import deque
 
+
 WIDTH = 80
 HEIGHT = 25
+
 
 def load_program(lines):
     grid = [[' ']*WIDTH for _ in range(HEIGHT)]
@@ -14,6 +17,7 @@ def load_program(lines):
         for x, ch in enumerate(line.rstrip('\n')[:WIDTH]):
             grid[y][x] = ch
     return grid
+
 
 class InputStream:
     def __init__(self, data=b''):
@@ -41,6 +45,7 @@ class InputStream:
             except ValueError:
                 return None
         return None
+
 
 def run(grid, inp_stream, out_stream):
     x = 0; y = 0; dx, dy = 1, 0
@@ -116,6 +121,7 @@ def run(grid, inp_stream, out_stream):
         y = (y + dy) % HEIGHT
     return
 
+
 def main():
     parser = argparse.ArgumentParser(
         description="Befunge-93 Interpreter — исполняет 2D-программы Befunge."
@@ -143,6 +149,7 @@ def main():
     grid = load_program(lines)
     inp_stream = InputStream(runtime_input)
     run(grid, inp_stream, sys.stdout)
+
 
 if __name__ == "__main__":
     main()

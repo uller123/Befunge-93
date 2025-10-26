@@ -4,6 +4,7 @@ import sys
 import pytest
 from befunge93 import run, load_program, InputStream, WIDTH, HEIGHT
 
+
 def execute(code, input_data=""):
     # создаём "виртуальную" сетку
     lines = code.splitlines(True)
@@ -13,49 +14,61 @@ def execute(code, input_data=""):
     run(grid, inp, out_stream)
     return out_stream.getvalue()
 
+
 def test_addition():
     code = "23+.@"
     assert execute(code) == "5 "
+
 
 def test_subtraction():
     code = "52-.@"
     assert execute(code) == "3 "
 
+
 def test_multiplication():
     code = "34*.@"
     assert execute(code) == "12 "
+
 
 def test_division():
     code = "84/.@"
     assert execute(code) == "2 "
 
+
 def test_modulo():
     code = "85%.@"
     assert execute(code) == "3 "
+
 
 def test_logical_not_zero():
     code = "0!.@"
     assert execute(code) == "1 "
 
+
 def test_logical_not_nonzero():
     code = "2!.@"
     assert execute(code) == "0 "
+
 
 def test_greater_true():
     code = "53`.@"
     assert execute(code) == "1 "
 
+
 def test_greater_false():
     code = "35`.@"
     assert execute(code) == "0 "
+
 
 def test_division_by_zero():
     code = "80/.@"
     assert execute(code) == "0 "
 
+
 def test_modulo_by_zero():
     code = "80%.@"
     assert execute(code) == "0 "
+
 
 def test_direction_changes():
     directions = {
@@ -64,6 +77,7 @@ def test_direction_changes():
         '^': (0, -1),
         'v': (0, 1)
     }
+
 
     for symbol, expected in directions.items():
         grid = [[' '] * 80 for _ in range(25)]
@@ -81,6 +95,7 @@ def test_direction_changes():
 
         assert (dx, dy) == expected
 
+
 def test_question_mark_direction():
     """Тест случайного направления '?' """
     grid = [['?'] + [' '] * 79] + [[' '] * 80 for _ in range(24)]
@@ -91,6 +106,7 @@ def test_question_mark_direction():
     if instr == '?':
         dx, dy = random.choice([(1,0),(-1,0),(0,1),(0,-1)])
     assert (dx, dy) in [(1,0), (-1,0), (0,1), (0,-1)]
+
 
 def test_underscore_direction():
     """Тест направления команды '_' """
@@ -112,6 +128,7 @@ def test_underscore_direction():
         dx, dy = (-1, 0)
     assert (dx, dy) == (-1, 0)
 
+
 def test_pipe_direction():
     """Тест направления команды '|' """
     # pop() == 0 => вниз
@@ -132,6 +149,7 @@ def test_pipe_direction():
         dx, dy = (0, -1)
     assert (dx, dy) == (0, -1)
 
+
 def test_colon_duplicate():
     """Тест команды ':' — дублирование верхнего значения стека."""
     # Если стек пуст — добавить 0 дважды
@@ -150,6 +168,7 @@ def test_colon_duplicate():
     push(a)
     push(a)
     assert stack == [7, 7]
+
 
 def test_backslash_swap():
     """Тест команды '\\' — обмен двух верхних элементов стека."""
@@ -178,6 +197,7 @@ def test_backslash_swap():
     push(b)
     assert stack == [20, 10]
 
+
 def test_dollar_pop():
     """Тест команды '$' — удаление верхнего элемента стека."""
     # Если стек пуст — ничего не меняется
@@ -196,6 +216,7 @@ def test_dollar_pop():
     stack = [4, 5, 6]
     pop()  # операция, стек остается [4, 5]
     assert stack == [4, 5]
+
 
 def test_dot_output():
     """Тест команды '.' — вывод верхнего элемента стека как числа и пробела."""
@@ -218,6 +239,7 @@ def test_dot_output():
     out_stream.flush()
     assert out_stream.getvalue() == '0 '
 
+
 def test_comma_output():
     """Тест команды ',' — вывод верхнего значения стека как символ."""
     # Когда a = 65, выводится 'A' (chr(65))
@@ -238,6 +260,7 @@ def test_comma_output():
     out_stream.write(chr(a % 256))
     out_stream.flush()
     assert out_stream.getvalue() == '\x00'
+
 
 def test_sharp_bridge():
     """Тест команды '#' — перепрыгивает одну ячейку по текущему направлению."""
@@ -277,6 +300,7 @@ def test_sharp_bridge():
     y = (y + dy) % HEIGHT
     assert (x, y) == (0, 23)
 
+
 def test_g_command():
     WIDTH, HEIGHT = 80, 25
     grid = [[' '] * WIDTH for _ in range(HEIGHT)]
@@ -287,6 +311,7 @@ def test_g_command():
     a, b = pop(), pop()
     push(ord(grid[b][a]) if 0 <= b < HEIGHT and 0 <= a < WIDTH else 0)
     assert stack[-1] == ord(grid[2][3])
+
 
 def test_p_command():
     """Тест команды 'p' — запись значения в grid[x][y] по модулю 256."""
@@ -315,6 +340,7 @@ def test_p_command():
     # За границами ничего не изменится
     assert all(grid[row][col] == ' ' for row in range(HEIGHT) for col in range(WIDTH))
 
+
 def test_ampersand_input_int():
     """Тест команды '&' — читает целое число из inp_stream."""
     stack = []
@@ -338,6 +364,7 @@ def test_ampersand_input_int():
     val = inp_stream.read_int_token()
     push(-1 if val is None else val)
     assert stack[-1] == -1
+
 
 def test_tilde_input_char():
     """Тест команды '~' — читает один символ из inp_stream."""
